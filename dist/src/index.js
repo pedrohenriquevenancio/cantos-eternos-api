@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express = require('express');
+const ArtistasController_1 = require("./app/controllers/ArtistasController");
+const GenerosMusicaisController_1 = require("./app/controllers/GenerosMusicaisController");
+const app = express();
+app.use(express.json());
+app.get('/artistas/', ArtistasController_1.default.index);
+app.get('/artistas/:id', ArtistasController_1.default.show);
+app.post('/artistas/', ArtistasController_1.default.store);
+app.put('/artistas/:id', ArtistasController_1.default.update);
+app.delete('/artistas/:id', ArtistasController_1.default.delete);
+app.get('/generosMusicais/', GenerosMusicaisController_1.default.index);
+app.get('/generosMusicais/:id', GenerosMusicaisController_1.default.show);
+app.post('/generosMusicais/', GenerosMusicaisController_1.default.store);
+app.put('/generosMusicais/:id', GenerosMusicaisController_1.default.update);
+app.delete('/generosMusicais/:id', GenerosMusicaisController_1.default.delete);
+exports.default = app;
