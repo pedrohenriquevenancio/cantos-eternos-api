@@ -9,35 +9,74 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const mongodb_1 = require("mongodb");
 const ArtistasRepository_1 = require("../repositories/ArtistasRepository");
+const idValid_1 = require("../utils/validators/idValid");
+const isArtista_1 = require("../utils/validators/artistas/isArtista");
 class ArtistasController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield ArtistasRepository_1.default.findAll();
-            // if (result) {
-            //     return res.status(204).send('Nenhum artista encontrado');
-            // }
-            res.send(result);
+            try {
+                const result = yield ArtistasRepository_1.default.findAll();
+                return res.status(result.code).json(result.data);
+            }
+            catch (error) {
+                return res.status(500).json({ error: 'Internal Server Error' });
+            }
         });
     }
     show(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            res.send('SHOW');
+            try {
+                if (!(0, idValid_1.default)(req.params.id))
+                    return res.status(400).json({ error: 'Invalid ID' });
+                const result = yield ArtistasRepository_1.default.findById(new mongodb_1.ObjectId(req.params.id));
+                return res.status(result.code).json(result.data);
+            }
+            catch (error) {
+                return res.status(500).json({ error: 'Internal Server Error' });
+            }
         });
     }
     store(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            res.send('STORE');
+            try {
+                const artista = req.body;
+                if (!(0, isArtista_1.default)(artista))
+                    return res.status(400).json({ error: 'Object is not of the type: Artista' });
+                const result = yield ArtistasRepository_1.default.create(artista);
+                return res.status(result.code).json(result.data);
+            }
+            catch (error) {
+                return res.status(500).json('Internal Server Error');
+            }
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            res.send('UPDATE');
+            try {
+                if (!(0, idValid_1.default)(req.params.id))
+                    return res.status(400).json({ error: 'Invalid ID' });
+                const artista = req.body;
+                const result = yield ArtistasRepository_1.default.update(new mongodb_1.ObjectId(req.params.id), artista);
+                return res.status(result.code).json(result.data);
+            }
+            catch (error) {
+                return res.status(500).json('Internal Server Error');
+            }
         });
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            res.send('DELETE');
+            try {
+                if (!(0, idValid_1.default)(req.params.id))
+                    return res.status(400).json({ error: 'Invalid ID' });
+                const result = yield ArtistasRepository_1.default.delete(new mongodb_1.ObjectId(req.params.id));
+                return res.status(result.code).json(result.data);
+            }
+            catch (error) {
+                return res.status(500).json('Internal Server Error');
+            }
         });
     }
 }

@@ -1,40 +1,68 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-const ArtistaSchema_1 = require("../database/schemas/ArtistaSchema");
+const connection_1 = require("../database/connection");
 class ArtistasRepository {
     create(artista) {
-        console.log('Artista criado com sucesso');
+        return __awaiter(this, void 0, void 0, function* () {
+            const db = yield (0, connection_1.default)();
+            const result = yield db.collection('artistas').insertOne(artista);
+            return new Promise((resolve, reject) => {
+                if (result)
+                    return resolve({ code: 201, data: JSON.parse(JSON.stringify(artista)) });
+                return reject({ code: 400, data: { error: 'Bad Request' } });
+            });
+        });
     }
     findAll() {
-        console.log('Listando todos os artistas');
-        mongoose_1.default.connection.once('open', () => {
-            console.log('Conexão bem-sucedida com o banco de dados');
-        });
-        mongoose_1.default.connection.on('error', (error) => {
-            console.error('Erro de conexão com o banco de dados:', error);
-        });
-        return new Promise((resolve, reject) => {
-            const ARTISTAS = mongoose_1.default.model('artistas', ArtistaSchema_1.default);
-            ARTISTAS.find()
-                .maxTimeMS(50000)
-                .then((result) => {
-                return resolve(result);
-            })
-                .catch((error) => {
-                console.log('Erro ao listar artistas', error);
-                return reject(error);
+        return __awaiter(this, void 0, void 0, function* () {
+            const db = yield (0, connection_1.default)();
+            const result = yield db.collection('artistas').find().toArray();
+            return new Promise((resolve) => {
+                return resolve({ code: ((result.length > 0) ? 200 : 204), data: JSON.parse(JSON.stringify(result)) });
             });
         });
     }
     findById(id) {
-        console.log('Listando artista por id');
+        return __awaiter(this, void 0, void 0, function* () {
+            const db = yield (0, connection_1.default)();
+            const result = yield db.collection('artistas').findOne({ _id: id });
+            return new Promise((resolve, reject) => {
+                if (result)
+                    return resolve({ code: 200, data: JSON.parse(JSON.stringify(result)) });
+                return reject({ code: 204, data: {} });
+            });
+        });
     }
     update(id, artista) {
-        console.log('Artista atualizado com sucesso');
+        return __awaiter(this, void 0, void 0, function* () {
+            const db = yield (0, connection_1.default)();
+            const result = yield db.collection('artistas').updateOne({ _id: id }, { $set: artista });
+            return new Promise((resolve, reject) => {
+                if (result)
+                    return resolve({ code: 200, data: JSON.parse(JSON.stringify(artista)) });
+                return reject({ code: 204, data: {} });
+            });
+        });
     }
     delete(id) {
-        console.log('Artista deletado com sucesso');
+        return __awaiter(this, void 0, void 0, function* () {
+            const db = yield (0, connection_1.default)();
+            const result = yield db.collection('artistas').deleteOne({ _id: id });
+            return new Promise((resolve, reject) => {
+                if (result)
+                    return resolve({ code: 200, data: JSON.parse(JSON.stringify(result)) });
+                return reject({ code: 204, data: {} });
+            });
+        });
     }
 }
 exports.default = new ArtistasRepository();

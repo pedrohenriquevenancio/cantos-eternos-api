@@ -1,23 +1,52 @@
+import { ObjectId } from "mongodb";
+import connect from "../database/connection";
+import { PromiseReturn } from "../utils/types/PromiseReturn";
+import { GeneroMusical } from './../utils/types/GeneroMusical';
+
 class GenerosMusicais {
 
-    create(artista: any) {
-        console.log('Artista criado com sucesso');
+    async create(genero: GeneroMusical) : Promise<PromiseReturn> {
+        const db = await connect();
+        const result = await db.collection('generosMusicais').insertOne(genero);
+        return new Promise((resolve, reject) => {
+            if (result) return resolve({code: 201, data: JSON.parse(JSON.stringify(genero))});
+            return reject({code: 400, data: {error: 'Bad Request'}});
+        });
     }
 
-    findAll() {
-        console.log('Listando todos os artistas');
+    async findAll() : Promise<PromiseReturn> {
+        const db = await connect();
+        const result = await db.collection('generosMusicais').find().toArray();
+        return new Promise((resolve) => {
+            return resolve({code: ((result.length > 0) ? 200 : 204), data: JSON.parse(JSON.stringify(result))});
+        });
     }
 
-    findById(id: any) {
-        console.log('Listando artista por id');
+    async findById(id: ObjectId) : Promise<PromiseReturn> {
+        const db = await connect();
+        const result = await db.collection('generosMusicais').findOne({_id:id});
+        return new Promise((resolve, reject) => {
+            if (result) return resolve({code: 200, data: JSON.parse(JSON.stringify(result))});
+            return reject({code: 204, data: {}});
+        });
     }
 
-    update(id: any, artista: any) {
-        console.log('Artista atualizado com sucesso');
+    async update(id: ObjectId, genero: GeneroMusical) : Promise<PromiseReturn> {
+        const db = await connect();
+        const result = await db.collection('generosMusicais').updateOne({_id:id}, {$set: genero});
+        return new Promise((resolve, reject) => {
+            if (result) return resolve({code: 200, data: result});
+            return reject({code: 204, data: {}});
+        });
     }
 
-    delete(id: any) {
-        console.log('Artista deletado com sucesso');
+    async delete(id: ObjectId) : Promise<PromiseReturn> {
+        const db = await connect();
+        const result = await db.collection('generosMusicais').deleteOne({_id:id});
+        return new Promise((resolve, reject) => {
+            if (result) return resolve({code: 200, data: result});
+            return reject({code: 204, data: {}});
+        });
     }
 
 }

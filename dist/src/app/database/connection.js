@@ -9,30 +9,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv');
 dotenv.config();
 const URI = process.env.MONGODB_URI;
+const DB_NAME = process.env.MONGODB_NAME;
 let singleton;
-const client = new MongoClient(URI, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }
-});
-function connectToDB() {
+function connect() {
     return __awaiter(this, void 0, void 0, function* () {
+        if (singleton)
+            return singleton;
+        const client = new MongoClient(URI);
         try {
-            if (singleton)
-                return singleton;
             yield client.connect();
-            singleton = client.db(process.env.MONGODB_NAME);
+            singleton = client.db(DB_NAME);
             return singleton;
         }
-        finally {
-            yield client.close();
+        catch (e) {
+            console.error(e);
         }
     });
 }
-exports.default = connectToDB;
+exports.default = connect;

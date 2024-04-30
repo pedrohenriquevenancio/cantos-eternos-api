@@ -1,26 +1,57 @@
 import { Request, Response } from "express";
+import { ObjectId } from "mongodb";
 import ArtistasRepository from '../repositories/ArtistasRepository';
+import { Artista } from '../utils/types/Artista';
+import idValid from "../utils/validators/idValid";
+import isArtista from "../utils/validators/artistas/isArtista";
 
 class ArtistasController {
 
     async index(req: Request, res: Response) {
-        const result = await ArtistasRepository.findAll();
-        // if (result) {
-        //     return res.status(204).send('Nenhum artista encontrado');
-        // }
-        res.send(result);
+        try {
+            const result = await ArtistasRepository.findAll();
+            return res.status(result.code).json(result.data);
+        } catch (error) {
+            return res.status(500).json({error: 'Internal Server Error'});
+        }
     }
     async show(req: Request, res: Response) {
-        res.send('SHOW');
+        try {
+            if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
+            const result = await ArtistasRepository.findById(new ObjectId(req.params.id));
+            return res.status(result.code).json(result.data);
+        } catch (error) {
+            return res.status(500).json({error: 'Internal Server Error'});
+        }
     }
     async store(req: Request, res: Response) {
-        res.send('STORE');
+        try {
+            const artista : Artista = req.body;
+            if (!isArtista(artista)) return res.status(400).json({error: 'Object is not of the type: Artista'});
+            const result = await ArtistasRepository.create(artista);
+            return res.status(result.code).json(result.data);
+        } catch (error) {
+            return res.status(500).json('Internal Server Error');
+        }
     }
     async update(req: Request, res: Response) {
-        res.send('UPDATE');
+        try {
+            if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
+            const artista : Artista = req.body;
+            const result = await ArtistasRepository.update(new ObjectId(req.params.id), artista);
+            return res.status(result.code).json(result.data);
+        } catch (error) {
+            return res.status(500).json('Internal Server Error');
+        }
     }
     async delete(req: Request, res: Response) {
-        res.send('DELETE');
+        try {
+            if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
+            const result = await ArtistasRepository.delete(new ObjectId(req.params.id));
+            return res.status(result.code).json(result.data);
+        } catch (error) {
+            return res.status(500).json('Internal Server Error');
+        }
     }
 
 }

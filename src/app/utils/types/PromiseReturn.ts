@@ -1,0 +1,1 @@
+export type PromiseReturn = {code: number, data: any};

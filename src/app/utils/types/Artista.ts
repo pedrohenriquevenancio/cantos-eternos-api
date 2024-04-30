@@ -1,6 +1,4 @@
-import mongoose from "mongoose";
-
-const ArtistaSchema = new mongoose.Schema({
+export type Artista = {
     nome: String,
     nacionalidade: String,
     cor: String,
@@ -16,6 +14,4 @@ const ArtistaSchema = new mongoose.Schema({
     qtdMusicas: Number,
     grandesSucessos: [],
     links: []
-});
-
-export default ArtistaSchema;
+}
