@@ -1,11 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require('express');
-const cors = require('cors');
 const ArtistasController_1 = require("./app/controllers/ArtistasController");
 const GenerosMusicaisController_1 = require("./app/controllers/GenerosMusicaisController");
 const app = express();
-app.use(cors());
 app.use(express.json());
 app.get('/', (req, res) => {
     return res.json({ message: 'API - Cantos Eternos' });
