@@ -9,7 +9,7 @@ const client = (0, connection_1.default)();
 client.then(() => {
     console.log('Connected to MongoDB');
     index_1.default.listen(PORT, () => {
-        console.log(`Server is running on port http://localhost:${PORT}`);
+        console.log(`Server is running on port https://cantos-eternos-api.vercel.app/`);
     });
 })
     .catch(console.dir);
