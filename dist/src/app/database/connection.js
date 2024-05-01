@@ -19,7 +19,9 @@ function connect() {
     return __awaiter(this, void 0, void 0, function* () {
         if (singleton)
             return singleton;
-        const client = new MongoClient(URI);
+        const client = new MongoClient(URI, {
+            serverSelectionTimeoutMS: 55000,
+        });
         try {
             yield client.connect();
             singleton = client.db(DB_NAME);

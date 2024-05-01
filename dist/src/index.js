@@ -5,6 +5,9 @@ const ArtistasController_1 = require("./app/controllers/ArtistasController");
 const GenerosMusicaisController_1 = require("./app/controllers/GenerosMusicaisController");
 const app = express();
 app.use(express.json());
+app.get('/', (req, res) => {
+    return res.json({ message: 'API - Cantos Eternos' });
+});
 app.get('/artistas/', ArtistasController_1.default.index);
 app.get('/artistas/:id', ArtistasController_1.default.show);
 app.post('/artistas/', ArtistasController_1.default.store);
