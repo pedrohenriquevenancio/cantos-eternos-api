@@ -10,9 +10,7 @@ let singleton:any;
 async function connect() {
   if (singleton) return singleton;
 
-  const client = new MongoClient(URI, {
-    serverSelectionTimeoutMS: 55000,
-  });
+  const client = new MongoClient(URI);
 
   try {
     await client.connect();
