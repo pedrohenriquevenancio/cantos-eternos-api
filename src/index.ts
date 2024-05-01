@@ -1,10 +1,15 @@
 const express = require('express');
+import { Request, Response } from 'express';
 import ArtistasController from './app/controllers/ArtistasController';
 import GenerosMusicaisController from './app/controllers/GenerosMusicaisController';
 
 const app = express();
 
 app.use(express.json());
+
+app.get('/', (req: Request, res: Response) => {
+    return res.json({message: 'API - Cantos Eternos'});
+});
 
 app.get('/artistas/', ArtistasController.index);
 app.get('/artistas/:id', ArtistasController.show);
