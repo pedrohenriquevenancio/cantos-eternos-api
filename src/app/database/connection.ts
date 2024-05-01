@@ -11,7 +11,7 @@ async function connect() {
   if (singleton) return singleton;
 
   const client = new MongoClient(URI, {
-    serverSelectionTimeoutMS: 10000,
+    serverSelectionTimeoutMS: 55000,
   });
 
   try {
