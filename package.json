@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/server.js",
-    "vercel-build": "tsc && node dist/server.js"
+    "vercel-build": "node dist/server.js"
   },
   "keywords": [],
   "author": "",

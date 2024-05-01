@@ -6,7 +6,7 @@
             "use": "@vercel/node"
         }
     ],
-    "buildCommand": "chmod +x /vercel/path0/node_modules/.bin/tsc && npm run vercel-build",
+    "buildCommand": "chmod +x /vercel/path0/node_modules/.bin/tsc && tsc && npm run vercel-build",
     "routes": [
         {
             "src": "(.*)",
