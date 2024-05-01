@@ -3,12 +3,10 @@
     "builds": [
         {
             "src": "server.ts",
-            "use": "@vercel/node",
-            "commands": {
-              "build": "chmod +x /vercel/path0/node_modules/.bin/tsc && npm run vercel-build"
-            }
+            "use": "@vercel/node"
         }
     ],
+    "buildCommand": "chmod +x /vercel/path0/node_modules/.bin/tsc && npm run vercel-build",
     "routes": [
         {
             "src": "(.*)",
