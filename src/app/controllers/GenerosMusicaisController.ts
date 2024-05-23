@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 import GenerosMusicaisRepository from '../repositories/GenerosMusicaisRepository';
 import isGeneroMusical from "../utils/validators/generosMusicais/isGeneroMusical";
 import idValid from "../utils/validators/idValid";
+import middleware from "../utils/validators/middleware";
 import { GeneroMusical } from './../utils/types/GeneroMusical';
 
 class GenerosMusicaisController {
@@ -25,6 +26,7 @@ class GenerosMusicaisController {
         }
     }
     async store(req: Request, res: Response) {
+        middleware(req, res);
         try {
             const genero : GeneroMusical = req.body;
             if (!isGeneroMusical(genero)) return res.status(400).json({error: 'Object is not of the type: Genero Musical'});
@@ -35,6 +37,7 @@ class GenerosMusicaisController {
         }
     }
     async update(req: Request, res: Response) {
+        middleware(req, res);
         try {
             if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
             const genero : GeneroMusical = req.body;
@@ -45,6 +48,7 @@ class GenerosMusicaisController {
         }
     }
     async delete(req: Request, res: Response) {
+        middleware(req, res);
         try {
             if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
             const result = await GenerosMusicaisRepository.delete(new ObjectId(req.params.id));

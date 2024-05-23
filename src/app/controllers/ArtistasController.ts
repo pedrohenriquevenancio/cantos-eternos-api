@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 import ArtistasRepository from '../repositories/ArtistasRepository';
 import { Artista } from '../utils/types/Artista';
 import idValid from "../utils/validators/idValid";
+import middleware from "../utils/validators/middleware";
 import isArtista from "../utils/validators/artistas/isArtista";
 
 class ArtistasController {
@@ -25,6 +26,7 @@ class ArtistasController {
         }
     }
     async store(req: Request, res: Response) {
+        middleware(req, res);
         try {
             const artista : Artista = req.body;
             if (!isArtista(artista)) return res.status(400).json({error: 'Object is not of the type: Artista'});
@@ -35,6 +37,7 @@ class ArtistasController {
         }
     }
     async update(req: Request, res: Response) {
+        middleware(req, res);
         try {
             if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
             const artista : Artista = req.body;
@@ -45,6 +48,7 @@ class ArtistasController {
         }
     }
     async delete(req: Request, res: Response) {
+        middleware(req, res);
         try {
             if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
             const result = await ArtistasRepository.delete(new ObjectId(req.params.id));

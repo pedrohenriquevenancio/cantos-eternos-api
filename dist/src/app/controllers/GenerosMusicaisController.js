@@ -13,6 +13,7 @@ const mongodb_1 = require("mongodb");
 const GenerosMusicaisRepository_1 = require("../repositories/GenerosMusicaisRepository");
 const isGeneroMusical_1 = require("../utils/validators/generosMusicais/isGeneroMusical");
 const idValid_1 = require("../utils/validators/idValid");
+const middleware_1 = require("../utils/validators/middleware");
 class GenerosMusicaisController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -40,6 +41,7 @@ class GenerosMusicaisController {
     }
     store(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            (0, middleware_1.default)(req, res);
             try {
                 const genero = req.body;
                 if (!(0, isGeneroMusical_1.default)(genero))
@@ -54,6 +56,7 @@ class GenerosMusicaisController {
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            (0, middleware_1.default)(req, res);
             try {
                 if (!(0, idValid_1.default)(req.params.id))
                     return res.status(400).json({ error: 'Invalid ID' });
@@ -68,6 +71,7 @@ class GenerosMusicaisController {
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            (0, middleware_1.default)(req, res);
             try {
                 if (!(0, idValid_1.default)(req.params.id))
                     return res.status(400).json({ error: 'Invalid ID' });

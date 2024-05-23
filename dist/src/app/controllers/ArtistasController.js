@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongodb_1 = require("mongodb");
 const ArtistasRepository_1 = require("../repositories/ArtistasRepository");
 const idValid_1 = require("../utils/validators/idValid");
+const middleware_1 = require("../utils/validators/middleware");
 const isArtista_1 = require("../utils/validators/artistas/isArtista");
 class ArtistasController {
     index(req, res) {
@@ -40,6 +41,7 @@ class ArtistasController {
     }
     store(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            (0, middleware_1.default)(req, res);
             try {
                 const artista = req.body;
                 if (!(0, isArtista_1.default)(artista))
@@ -54,6 +56,7 @@ class ArtistasController {
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            (0, middleware_1.default)(req, res);
             try {
                 if (!(0, idValid_1.default)(req.params.id))
                     return res.status(400).json({ error: 'Invalid ID' });
@@ -68,6 +71,7 @@ class ArtistasController {
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            (0, middleware_1.default)(req, res);
             try {
                 if (!(0, idValid_1.default)(req.params.id))
                     return res.status(400).json({ error: 'Invalid ID' });
