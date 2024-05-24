@@ -42,13 +42,14 @@ class ArtistasController {
     store(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (!(0, middleware_1.default)(req, res))
-                    return res.status(401).json({ error: 'Unauthorized' });
-                const artista = req.body;
-                if (!(0, isArtista_1.default)(artista))
-                    return res.status(400).json({ error: 'Object is not of the type: Artista' });
-                const result = yield ArtistasRepository_1.default.create(artista);
-                return res.status(result.code).json(result.data);
+                if ((0, middleware_1.default)(req, res)) {
+                    const artista = req.body;
+                    if (!(0, isArtista_1.default)(artista))
+                        return res.status(400).json({ error: 'Object is not of the type: Artista' });
+                    const result = yield ArtistasRepository_1.default.create(artista);
+                    return res.status(result.code).json(result.data);
+                }
+                return res.status(401).json({ error: 'Unauthorized' });
             }
             catch (error) {
                 return res.status(500).json('Internal Server Error');
@@ -58,13 +59,14 @@ class ArtistasController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (!(0, middleware_1.default)(req, res))
-                    return res.status(401).json({ error: 'Unauthorized' });
-                if (!(0, idValid_1.default)(req.params.id))
-                    return res.status(400).json({ error: 'Invalid ID' });
-                const artista = req.body;
-                const result = yield ArtistasRepository_1.default.update(new mongodb_1.ObjectId(req.params.id), artista);
-                return res.status(result.code).json(result.data);
+                if ((0, middleware_1.default)(req, res)) {
+                    if (!(0, idValid_1.default)(req.params.id))
+                        return res.status(400).json({ error: 'Invalid ID' });
+                    const artista = req.body;
+                    const result = yield ArtistasRepository_1.default.update(new mongodb_1.ObjectId(req.params.id), artista);
+                    return res.status(result.code).json(result.data);
+                }
+                return res.status(401).json({ error: 'Unauthorized' });
             }
             catch (error) {
                 return res.status(500).json('Internal Server Error');
@@ -74,12 +76,13 @@ class ArtistasController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (!(0, middleware_1.default)(req, res))
-                    return res.status(401).json({ error: 'Unauthorized' });
-                if (!(0, idValid_1.default)(req.params.id))
-                    return res.status(400).json({ error: 'Invalid ID' });
-                const result = yield ArtistasRepository_1.default.delete(new mongodb_1.ObjectId(req.params.id));
-                return res.status(result.code).json(result.data);
+                if ((0, middleware_1.default)(req, res)) {
+                    if (!(0, idValid_1.default)(req.params.id))
+                        return res.status(400).json({ error: 'Invalid ID' });
+                    const result = yield ArtistasRepository_1.default.delete(new mongodb_1.ObjectId(req.params.id));
+                    return res.status(result.code).json(result.data);
+                }
+                return res.status(401).json({ error: 'Unauthorized' });
             }
             catch (error) {
                 return res.status(500).json('Internal Server Error');

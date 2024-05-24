@@ -27,32 +27,38 @@ class GenerosMusicaisController {
     }
     async store(req: Request, res: Response) {
         try {
-            if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
-            const genero : GeneroMusical = req.body;
-            if (!isGeneroMusical(genero)) return res.status(400).json({error: 'Object is not of the type: Genero Musical'});
-            const result = await GenerosMusicaisRepository.create(genero);
-            return res.status(result.code).json(result.data);
+            if (middleware(req, res)) {
+                const genero : GeneroMusical = req.body;
+                if (!isGeneroMusical(genero)) return res.status(400).json({error: 'Object is not of the type: Genero Musical'});
+                const result = await GenerosMusicaisRepository.create(genero);
+                return res.status(result.code).json(result.data);
+            }
+            return res.status(401).json({error: 'Unauthorized'});
         } catch (error) {
             return res.status(500).json('Internal Server Error');
         }
     }
     async update(req: Request, res: Response) {
         try {
-            if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
-            if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
-            const genero : GeneroMusical = req.body;
-            const result = await GenerosMusicaisRepository.update(new ObjectId(req.params.id), genero);
-            return res.status(result.code).json(result.data);
+            if (middleware(req, res)) {
+                if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
+                const genero : GeneroMusical = req.body;
+                const result = await GenerosMusicaisRepository.update(new ObjectId(req.params.id), genero);
+                return res.status(result.code).json(result.data);
+            }
+            return res.status(401).json({error: 'Unauthorized'});
         } catch (error) {
             return res.status(500).json('Internal Server Error');
         }
     }
     async delete(req: Request, res: Response) {
         try {
-            if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
-            if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
-            const result = await GenerosMusicaisRepository.delete(new ObjectId(req.params.id));
-            return res.status(result.code).json(result.data);
+            if (middleware(req, res)) {
+                if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
+                const result = await GenerosMusicaisRepository.delete(new ObjectId(req.params.id));
+                return res.status(result.code).json(result.data);
+            }
+            return res.status(401).json({error: 'Unauthorized'});
         } catch (error) {
             return res.status(500).json('Internal Server Error');
         }
