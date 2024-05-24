@@ -41,7 +41,8 @@ class ArtistasController {
     }
     store(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, middleware_1.default)(req, res);
+            if (!(0, middleware_1.default)(req, res))
+                return res.status(401).json({ error: 'Unauthorized' });
             try {
                 const artista = req.body;
                 if (!(0, isArtista_1.default)(artista))
@@ -56,7 +57,8 @@ class ArtistasController {
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, middleware_1.default)(req, res);
+            if (!(0, middleware_1.default)(req, res))
+                return res.status(401).json({ error: 'Unauthorized' });
             try {
                 if (!(0, idValid_1.default)(req.params.id))
                     return res.status(400).json({ error: 'Invalid ID' });
@@ -71,7 +73,8 @@ class ArtistasController {
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, middleware_1.default)(req, res);
+            if (!(0, middleware_1.default)(req, res))
+                return res.status(401).json({ error: 'Unauthorized' });
             try {
                 if (!(0, idValid_1.default)(req.params.id))
                     return res.status(400).json({ error: 'Invalid ID' });

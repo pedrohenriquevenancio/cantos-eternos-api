@@ -41,7 +41,8 @@ class GenerosMusicaisController {
     }
     store(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, middleware_1.default)(req, res);
+            if (!(0, middleware_1.default)(req, res))
+                return res.status(401).json({ error: 'Unauthorized' });
             try {
                 const genero = req.body;
                 if (!(0, isGeneroMusical_1.default)(genero))
@@ -56,7 +57,8 @@ class GenerosMusicaisController {
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, middleware_1.default)(req, res);
+            if (!(0, middleware_1.default)(req, res))
+                return res.status(401).json({ error: 'Unauthorized' });
             try {
                 if (!(0, idValid_1.default)(req.params.id))
                     return res.status(400).json({ error: 'Invalid ID' });
@@ -71,7 +73,8 @@ class GenerosMusicaisController {
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, middleware_1.default)(req, res);
+            if (!(0, middleware_1.default)(req, res))
+                return res.status(401).json({ error: 'Unauthorized' });
             try {
                 if (!(0, idValid_1.default)(req.params.id))
                     return res.status(400).json({ error: 'Invalid ID' });
