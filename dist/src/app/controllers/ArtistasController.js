@@ -42,7 +42,8 @@ class ArtistasController {
     store(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if ((0, middleware_1.default)(req, res)) {
+                const token = req.headers.authorization;
+                if (token && (0, middleware_1.default)(token)) {
                     const artista = req.body;
                     if (!(0, isArtista_1.default)(artista))
                         return res.status(400).json({ error: 'Object is not of the type: Artista' });
@@ -59,7 +60,8 @@ class ArtistasController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if ((0, middleware_1.default)(req, res)) {
+                const token = req.headers.authorization;
+                if (token && (0, middleware_1.default)(token)) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
                     const artista = req.body;
@@ -76,7 +78,8 @@ class ArtistasController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if ((0, middleware_1.default)(req, res)) {
+                const token = req.headers.authorization;
+                if (token && (0, middleware_1.default)(token)) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
                     const result = yield ArtistasRepository_1.default.delete(new mongodb_1.ObjectId(req.params.id));
