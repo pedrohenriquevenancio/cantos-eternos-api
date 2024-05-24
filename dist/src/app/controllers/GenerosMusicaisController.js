@@ -41,9 +41,9 @@ class GenerosMusicaisController {
     }
     store(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!(0, middleware_1.default)(req, res))
-                return res.status(401).json({ error: 'Unauthorized' });
             try {
+                if (!(0, middleware_1.default)(req, res))
+                    return res.status(401).json({ error: 'Unauthorized' });
                 const genero = req.body;
                 if (!(0, isGeneroMusical_1.default)(genero))
                     return res.status(400).json({ error: 'Object is not of the type: Genero Musical' });
@@ -57,9 +57,9 @@ class GenerosMusicaisController {
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!(0, middleware_1.default)(req, res))
-                return res.status(401).json({ error: 'Unauthorized' });
             try {
+                if (!(0, middleware_1.default)(req, res))
+                    return res.status(401).json({ error: 'Unauthorized' });
                 if (!(0, idValid_1.default)(req.params.id))
                     return res.status(400).json({ error: 'Invalid ID' });
                 const genero = req.body;
@@ -73,9 +73,9 @@ class GenerosMusicaisController {
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!(0, middleware_1.default)(req, res))
-                return res.status(401).json({ error: 'Unauthorized' });
             try {
+                if (!(0, middleware_1.default)(req, res))
+                    return res.status(401).json({ error: 'Unauthorized' });
                 if (!(0, idValid_1.default)(req.params.id))
                     return res.status(400).json({ error: 'Invalid ID' });
                 const result = yield GenerosMusicaisRepository_1.default.delete(new mongodb_1.ObjectId(req.params.id));
