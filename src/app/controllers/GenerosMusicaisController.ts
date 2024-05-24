@@ -26,8 +26,8 @@ class GenerosMusicaisController {
         }
     }
     async store(req: Request, res: Response) {
-        if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
         try {
+            if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
             const genero : GeneroMusical = req.body;
             if (!isGeneroMusical(genero)) return res.status(400).json({error: 'Object is not of the type: Genero Musical'});
             const result = await GenerosMusicaisRepository.create(genero);
@@ -37,8 +37,8 @@ class GenerosMusicaisController {
         }
     }
     async update(req: Request, res: Response) {
-        if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
         try {
+            if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
             if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
             const genero : GeneroMusical = req.body;
             const result = await GenerosMusicaisRepository.update(new ObjectId(req.params.id), genero);
@@ -48,8 +48,8 @@ class GenerosMusicaisController {
         }
     }
     async delete(req: Request, res: Response) {
-        if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
         try {
+            if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
             if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
             const result = await GenerosMusicaisRepository.delete(new ObjectId(req.params.id));
             return res.status(result.code).json(result.data);

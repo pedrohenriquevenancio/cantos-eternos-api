@@ -26,8 +26,8 @@ class ArtistasController {
         }
     }
     async store(req: Request, res: Response) {
-        if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
         try {
+            if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
             const artista : Artista = req.body;
             if (!isArtista(artista)) return res.status(400).json({error: 'Object is not of the type: Artista'});
             const result = await ArtistasRepository.create(artista);
@@ -37,8 +37,8 @@ class ArtistasController {
         }
     }
     async update(req: Request, res: Response) {
-        if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
         try {
+            if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
             if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
             const artista : Artista = req.body;
             const result = await ArtistasRepository.update(new ObjectId(req.params.id), artista);
@@ -48,8 +48,8 @@ class ArtistasController {
         }
     }
     async delete(req: Request, res: Response) {
-        if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
         try {
+            if (!middleware(req, res)) return res.status(401).json({error: 'Unauthorized'});
             if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
             const result = await ArtistasRepository.delete(new ObjectId(req.params.id));
             return res.status(result.code).json(result.data);
