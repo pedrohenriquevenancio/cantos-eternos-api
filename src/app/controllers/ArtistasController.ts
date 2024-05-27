@@ -46,7 +46,7 @@ class ArtistasController {
         try {
             const token = req.headers.authorization as string;
             const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET as string;
-            if (!api_key) return res.status(500).json({error: 'Internal Server Error'});
+            if (!api_key) return res.status(500).json({error: `Internal Server Error ${api_key} e ${token}`});
             if (token && token === api_key) {
                 if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
                 const artista : Artista = req.body;
