@@ -4,8 +4,8 @@ import ArtistasRepository from '../repositories/ArtistasRepository';
 import { Artista } from '../utils/types/Artista';
 import isArtista from "../utils/validators/artistas/isArtista";
 import idValid from "../utils/validators/idValid";
-require('dotenv').config();
-console.log('NEXT_PUBLIC_TOKEN_SECRET:', process.env.NEXT_PUBLIC_TOKEN_SECRET);
+const dotenv = require('dotenv');
+dotenv.config();
 
 class ArtistasController {
 

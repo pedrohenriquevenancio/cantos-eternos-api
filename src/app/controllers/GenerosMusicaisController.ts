@@ -4,7 +4,8 @@ import GenerosMusicaisRepository from '../repositories/GenerosMusicaisRepository
 import isGeneroMusical from "../utils/validators/generosMusicais/isGeneroMusical";
 import idValid from "../utils/validators/idValid";
 import { GeneroMusical } from './../utils/types/GeneroMusical';
-require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config();
 
 class GenerosMusicaisController {
 

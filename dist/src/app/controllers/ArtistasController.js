@@ -13,8 +13,8 @@ const mongodb_1 = require("mongodb");
 const ArtistasRepository_1 = require("../repositories/ArtistasRepository");
 const isArtista_1 = require("../utils/validators/artistas/isArtista");
 const idValid_1 = require("../utils/validators/idValid");
-require('dotenv').config();
-console.log('NEXT_PUBLIC_TOKEN_SECRET:', process.env.NEXT_PUBLIC_TOKEN_SECRET);
+const dotenv = require('dotenv');
+dotenv.config();
 class ArtistasController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

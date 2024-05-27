@@ -13,7 +13,8 @@ const mongodb_1 = require("mongodb");
 const GenerosMusicaisRepository_1 = require("../repositories/GenerosMusicaisRepository");
 const isGeneroMusical_1 = require("../utils/validators/generosMusicais/isGeneroMusical");
 const idValid_1 = require("../utils/validators/idValid");
-require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config();
 class GenerosMusicaisController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
