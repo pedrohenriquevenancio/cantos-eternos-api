@@ -57,6 +57,7 @@ class ArtistasController {
     async delete(req: Request, res: Response) {
         try {
             const token = req.headers.authorization as string;
+            console.log(token, middleware(token), (token && middleware(token)));
             if (token && middleware(token)) {
                 if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
                 const result = await ArtistasRepository.delete(new ObjectId(req.params.id));
