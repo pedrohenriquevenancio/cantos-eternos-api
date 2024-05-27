@@ -45,7 +45,7 @@ class ArtistasController {
             const token = req.headers.authorization;
             const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
             if (!api_key)
-                return res.status(500).json({ error: 'Internal Server Error' });
+                return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token}` });
             try {
                 if (token && token === api_key) {
                     const artista = req.body;
@@ -57,7 +57,7 @@ class ArtistasController {
                 return res.status(401).json({ error: 'Unauthorized' });
             }
             catch (error) {
-                return res.status(500).json('Internal Server Error');
+                return res.status(500).json(`Internal Server Error ${api_key} e ${token}`);
             }
         });
     }
@@ -78,7 +78,7 @@ class ArtistasController {
                 return res.status(401).json({ error: `Unauthorized ${token} e ${api_key}` });
             }
             catch (error) {
-                return res.status(500).json('Internal Server Error');
+                return res.status(500).json(`Internal Server Error ${api_key} e ${token}`);
             }
         });
     }
@@ -87,7 +87,7 @@ class ArtistasController {
             const token = req.headers.authorization;
             const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
             if (!api_key)
-                return res.status(500).json({ error: 'Internal Server Error' });
+                return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token}` });
             try {
                 if (token && token === api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
@@ -98,7 +98,7 @@ class ArtistasController {
                 return res.status(401).json({ error: 'Unauthorized' });
             }
             catch (error) {
-                return res.status(500).json('Internal Server Error');
+                return res.status(500).json(`Internal Server Error ${api_key} e ${token}`);
             }
         });
     }
