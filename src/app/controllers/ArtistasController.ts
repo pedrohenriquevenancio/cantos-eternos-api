@@ -49,7 +49,7 @@ class ArtistasController {
                 const result = await ArtistasRepository.update(new ObjectId(req.params.id), artista);
                 return res.status(result.code).json(result.data);
             }
-            return res.status(401).json({error: 'Unauthorized'});
+            return res.status(401).json({error: `Unauthorized ${token} e ${middleware(token)}`});
         } catch (error) {
             return res.status(500).json('Internal Server Error');
         }
