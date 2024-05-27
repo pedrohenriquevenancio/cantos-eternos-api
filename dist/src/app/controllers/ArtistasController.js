@@ -77,7 +77,7 @@ class ArtistasController {
                 return res.status(401).json({ error: `Unauthorized ${token} e ${api_key}` });
             }
             catch (error) {
-                return res.status(500).json(`Internal Server Error ${api_key} e ${token} = ${token == api_key}`);
+                return res.status(500).json(`Internal Server Error ${api_key} e ${token} = ${token == api_key}\n ${error}`);
             }
         });
     }
