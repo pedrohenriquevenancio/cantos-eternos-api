@@ -66,7 +66,7 @@ class ArtistasController {
             const token = req.headers.authorization;
             const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
             if (api_key == undefined || api_key == null)
-                return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token}` });
+                return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token} = ${token == api_key}` });
             try {
                 if (token && token == api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
@@ -78,7 +78,7 @@ class ArtistasController {
                 return res.status(401).json({ error: `Unauthorized ${token} e ${api_key}` });
             }
             catch (error) {
-                return res.status(500).json(`Internal Server Error ${api_key} e ${token}`);
+                return res.status(500).json(`Internal Server Error ${api_key} e ${token} = ${token == api_key}`);
             }
         });
     }
