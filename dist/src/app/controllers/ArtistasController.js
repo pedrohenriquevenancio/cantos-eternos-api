@@ -42,11 +42,11 @@ class ArtistasController {
     }
     store(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const token = req.headers.authorization;
+            const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
+            if (!api_key)
+                return res.status(500).json({ error: 'Internal Server Error' });
             try {
-                const token = req.headers.authorization;
-                const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
-                if (!api_key)
-                    return res.status(500).json({ error: 'Internal Server Error' });
                 if (token && token === api_key) {
                     const artista = req.body;
                     if (!(0, isArtista_1.default)(artista))
@@ -63,11 +63,11 @@ class ArtistasController {
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const token = req.headers.authorization;
+            const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
+            if (!api_key)
+                return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token}` });
             try {
-                const token = req.headers.authorization;
-                const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
-                if (!api_key)
-                    return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token}` });
                 if (token && token === api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
@@ -84,11 +84,11 @@ class ArtistasController {
     }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const token = req.headers.authorization;
+            const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
+            if (!api_key)
+                return res.status(500).json({ error: 'Internal Server Error' });
             try {
-                const token = req.headers.authorization;
-                const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
-                if (!api_key)
-                    return res.status(500).json({ error: 'Internal Server Error' });
                 if (token && token === api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
