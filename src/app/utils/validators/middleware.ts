@@ -1,6 +1,6 @@
-import tokenValid from "./tokenValid";
+require('dotenv').config();
 
 export default function middleware(token: string) {
-    const tokenIsValid = tokenValid(token as string);
-    return tokenIsValid;
+    const api_key = process.env.TOKEN_SECRET as string;
+    return token == api_key;
 }

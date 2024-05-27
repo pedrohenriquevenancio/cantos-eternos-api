@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tokenValid_1 = require("./tokenValid");
+require('dotenv').config();
 function middleware(token) {
-    const tokenIsValid = (0, tokenValid_1.default)(token);
-    return tokenIsValid;
+    const api_key = process.env.TOKEN_SECRET;
+    return token == api_key;
 }
 exports.default = middleware;
