@@ -31,7 +31,7 @@ class ArtistasController {
         const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET as string;
         if (api_key == undefined || api_key == null) return res.status(500).json({error: `Internal Server Error ${api_key} e ${token}`});
         try {
-            if (token && token == api_key) {
+            if (token == api_key) {
                 const artista : Artista = req.body;
                 if (!isArtista(artista)) return res.status(400).json({error: 'Object is not of the type: Artista'});
                 const result = await ArtistasRepository.create(artista);
@@ -45,9 +45,9 @@ class ArtistasController {
     async update(req: Request, res: Response) {
         const token = req.headers.authorization as string;
         const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET as string;
-        if (api_key == undefined || api_key == null) return res.status(500).json({error: `Internal Server Error ${api_key} e ${token} = ${token == api_key}`});
+        // if (api_key == undefined || api_key == null) return res.status(500).json({error: `Internal Server Error ${api_key} e ${token} = ${token == api_key}`});
         try {
-            if (token && token == api_key) {
+            if (token == api_key) {
                 if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
                 const artista : Artista = req.body;
                 const result = await ArtistasRepository.update(new ObjectId(req.params.id), artista);
@@ -63,7 +63,7 @@ class ArtistasController {
         const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET as string;
         if (api_key == undefined || api_key == null) return res.status(500).json({error: `Internal Server Error ${api_key} e ${token}`});
         try {
-            if (token && token == api_key) {
+            if (token == api_key) {
                 if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
                 const result = await ArtistasRepository.delete(new ObjectId(req.params.id));
                 return res.status(result.code).json(result.data);
