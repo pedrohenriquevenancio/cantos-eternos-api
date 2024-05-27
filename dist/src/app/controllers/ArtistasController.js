@@ -44,7 +44,7 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             const token = req.headers.authorization;
             const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
-            if (!api_key)
+            if (api_key == undefined || api_key == null)
                 return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token}` });
             try {
                 if (token && token == api_key) {
@@ -65,7 +65,7 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             const token = req.headers.authorization;
             const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
-            if (!api_key)
+            if (api_key == undefined || api_key == null)
                 return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token}` });
             try {
                 if (token && token == api_key) {
@@ -86,7 +86,7 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             const token = req.headers.authorization;
             const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
-            if (!api_key)
+            if (api_key == undefined || api_key == null)
                 return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token}` });
             try {
                 if (token && token == api_key) {

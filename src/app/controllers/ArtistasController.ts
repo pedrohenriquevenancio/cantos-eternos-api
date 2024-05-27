@@ -29,7 +29,7 @@ class ArtistasController {
     async store(req: Request, res: Response) {
         const token = req.headers.authorization as string;
         const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET as string;
-        if (!api_key) return res.status(500).json({error: `Internal Server Error ${api_key} e ${token}`});
+        if (api_key == undefined || api_key == null) return res.status(500).json({error: `Internal Server Error ${api_key} e ${token}`});
         try {
             if (token && token == api_key) {
                 const artista : Artista = req.body;
@@ -45,7 +45,7 @@ class ArtistasController {
     async update(req: Request, res: Response) {
         const token = req.headers.authorization as string;
         const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET as string;
-        if (!api_key) return res.status(500).json({error: `Internal Server Error ${api_key} e ${token}`});
+        if (api_key == undefined || api_key == null) return res.status(500).json({error: `Internal Server Error ${api_key} e ${token}`});
         try {
             if (token && token == api_key) {
                 if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
@@ -61,7 +61,7 @@ class ArtistasController {
     async delete(req: Request, res: Response) {
         const token = req.headers.authorization as string;
         const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET as string;
-        if (!api_key) return res.status(500).json({error: `Internal Server Error ${api_key} e ${token}`});
+        if (api_key == undefined || api_key == null) return res.status(500).json({error: `Internal Server Error ${api_key} e ${token}`});
         try {
             if (token && token == api_key) {
                 if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
