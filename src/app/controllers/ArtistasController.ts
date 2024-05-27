@@ -6,6 +6,8 @@ import idValid from "../utils/validators/idValid";
 import middleware from "../utils/validators/middleware";
 import isArtista from "../utils/validators/artistas/isArtista";
 
+const api_key = process.env.TOKEN_SECRET as string;
+
 class ArtistasController {
 
     async index(req: Request, res: Response) {
@@ -42,7 +44,7 @@ class ArtistasController {
     async update(req: Request, res: Response) {
         try {
             const token = req.headers.authorization as string;
-            console.log(token, middleware(token), (token && middleware(token)));
+            console.log(token, middleware(token), (token && middleware(token)), api_key);
             if (token && middleware(token)) {
                 if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
                 const artista : Artista = req.body;

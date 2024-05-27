@@ -14,6 +14,7 @@ const ArtistasRepository_1 = require("../repositories/ArtistasRepository");
 const idValid_1 = require("../utils/validators/idValid");
 const middleware_1 = require("../utils/validators/middleware");
 const isArtista_1 = require("../utils/validators/artistas/isArtista");
+const api_key = process.env.TOKEN_SECRET;
 class ArtistasController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -61,7 +62,7 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                console.log(token, (0, middleware_1.default)(token), (token && (0, middleware_1.default)(token)));
+                console.log(token, (0, middleware_1.default)(token), (token && (0, middleware_1.default)(token)), api_key);
                 if (token && (0, middleware_1.default)(token)) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
