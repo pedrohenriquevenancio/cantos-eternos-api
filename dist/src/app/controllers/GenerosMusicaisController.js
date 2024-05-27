@@ -43,7 +43,7 @@ class GenerosMusicaisController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                const api_key = process.env.TOKEN_SECRET;
+                const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
                 if (token && token === api_key) {
                     const genero = req.body;
                     if (!(0, isGeneroMusical_1.default)(genero))
@@ -62,7 +62,7 @@ class GenerosMusicaisController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                const api_key = process.env.TOKEN_SECRET;
+                const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
                 if (token && token === api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
@@ -81,7 +81,7 @@ class GenerosMusicaisController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                const api_key = process.env.TOKEN_SECRET;
+                const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
                 if (token && token === api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });

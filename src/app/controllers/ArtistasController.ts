@@ -2,9 +2,8 @@ import { Request, Response } from "express";
 import { ObjectId } from "mongodb";
 import ArtistasRepository from '../repositories/ArtistasRepository';
 import { Artista } from '../utils/types/Artista';
-import idValid from "../utils/validators/idValid";
-import middleware from "../utils/validators/middleware";
 import isArtista from "../utils/validators/artistas/isArtista";
+import idValid from "../utils/validators/idValid";
 require('dotenv').config();
 
 class ArtistasController {
@@ -29,7 +28,8 @@ class ArtistasController {
     async store(req: Request, res: Response) {
         try {
             const token = req.headers.authorization as string;
-            const api_key = process.env.TOKEN_SECRET as string;
+            const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET as string;
+            if (!api_key) return res.status(500).json({error: 'Internal Server Error'});
             if (token && token === api_key) {
                 const artista : Artista = req.body;
                 if (!isArtista(artista)) return res.status(400).json({error: 'Object is not of the type: Artista'});
@@ -44,7 +44,8 @@ class ArtistasController {
     async update(req: Request, res: Response) {
         try {
             const token = req.headers.authorization as string;
-            const api_key = process.env.TOKEN_SECRET as string;
+            const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET as string;
+            if (!api_key) return res.status(500).json({error: 'Internal Server Error'});
             if (token && token === api_key) {
                 if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
                 const artista : Artista = req.body;
@@ -59,7 +60,8 @@ class ArtistasController {
     async delete(req: Request, res: Response) {
         try {
             const token = req.headers.authorization as string;
-            const api_key = process.env.TOKEN_SECRET as string;
+            const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET as string;
+            if (!api_key) return res.status(500).json({error: 'Internal Server Error'});
             if (token && token === api_key) {
                 if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
                 const result = await ArtistasRepository.delete(new ObjectId(req.params.id));

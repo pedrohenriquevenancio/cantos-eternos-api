@@ -11,8 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongodb_1 = require("mongodb");
 const ArtistasRepository_1 = require("../repositories/ArtistasRepository");
-const idValid_1 = require("../utils/validators/idValid");
 const isArtista_1 = require("../utils/validators/artistas/isArtista");
+const idValid_1 = require("../utils/validators/idValid");
 require('dotenv').config();
 class ArtistasController {
     index(req, res) {
@@ -43,7 +43,9 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                const api_key = process.env.TOKEN_SECRET;
+                const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
+                if (!api_key)
+                    return res.status(500).json({ error: 'Internal Server Error' });
                 if (token && token === api_key) {
                     const artista = req.body;
                     if (!(0, isArtista_1.default)(artista))
@@ -62,7 +64,9 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                const api_key = process.env.TOKEN_SECRET;
+                const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
+                if (!api_key)
+                    return res.status(500).json({ error: 'Internal Server Error' });
                 if (token && token === api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
@@ -81,7 +85,9 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                const api_key = process.env.TOKEN_SECRET;
+                const api_key = process.env.NEXT_PUBLIC_TOKEN_SECRET;
+                if (!api_key)
+                    return res.status(500).json({ error: 'Internal Server Error' });
                 if (token && token === api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
