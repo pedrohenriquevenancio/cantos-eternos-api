@@ -1,4 +1,5 @@
 export type Artista = {
+    _id?: String,
     nome: String,
     nacionalidade: String,
     cor: String,
