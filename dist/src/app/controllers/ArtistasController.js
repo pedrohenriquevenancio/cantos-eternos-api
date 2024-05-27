@@ -47,7 +47,7 @@ class ArtistasController {
             if (!api_key)
                 return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token}` });
             try {
-                if (token && token === api_key) {
+                if (token && token == api_key) {
                     const artista = req.body;
                     if (!(0, isArtista_1.default)(artista))
                         return res.status(400).json({ error: 'Object is not of the type: Artista' });
@@ -68,7 +68,7 @@ class ArtistasController {
             if (!api_key)
                 return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token}` });
             try {
-                if (token && token === api_key) {
+                if (token && token == api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
                     const artista = req.body;
@@ -89,7 +89,7 @@ class ArtistasController {
             if (!api_key)
                 return res.status(500).json({ error: `Internal Server Error ${api_key} e ${token}` });
             try {
-                if (token && token === api_key) {
+                if (token && token == api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
                     const result = yield ArtistasRepository_1.default.delete(new mongodb_1.ObjectId(req.params.id));
