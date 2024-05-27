@@ -12,9 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongodb_1 = require("mongodb");
 const ArtistasRepository_1 = require("../repositories/ArtistasRepository");
 const idValid_1 = require("../utils/validators/idValid");
-const middleware_1 = require("../utils/validators/middleware");
 const isArtista_1 = require("../utils/validators/artistas/isArtista");
-const api_key = process.env.TOKEN_SECRET;
+require('dotenv').config();
 class ArtistasController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -44,7 +43,8 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                if (token && (0, middleware_1.default)(token)) {
+                const api_key = process.env.TOKEN_SECRET;
+                if (token && token === api_key) {
                     const artista = req.body;
                     if (!(0, isArtista_1.default)(artista))
                         return res.status(400).json({ error: 'Object is not of the type: Artista' });
@@ -62,15 +62,15 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                console.log(token, (0, middleware_1.default)(token), (token && (0, middleware_1.default)(token)), api_key);
-                if (token && (0, middleware_1.default)(token)) {
+                const api_key = process.env.TOKEN_SECRET;
+                if (token && token === api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
                     const artista = req.body;
                     const result = yield ArtistasRepository_1.default.update(new mongodb_1.ObjectId(req.params.id), artista);
                     return res.status(result.code).json(result.data);
                 }
-                return res.status(401).json({ error: `Unauthorized ${token} e ${(0, middleware_1.default)(token)}` });
+                return res.status(401).json({ error: `Unauthorized ${token} e ${api_key}` });
             }
             catch (error) {
                 return res.status(500).json('Internal Server Error');
@@ -81,8 +81,8 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                console.log(token, (0, middleware_1.default)(token), (token && (0, middleware_1.default)(token)));
-                if (token && (0, middleware_1.default)(token)) {
+                const api_key = process.env.TOKEN_SECRET;
+                if (token && token === api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
                     const result = yield ArtistasRepository_1.default.delete(new mongodb_1.ObjectId(req.params.id));

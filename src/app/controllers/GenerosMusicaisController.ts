@@ -3,8 +3,8 @@ import { ObjectId } from "mongodb";
 import GenerosMusicaisRepository from '../repositories/GenerosMusicaisRepository';
 import isGeneroMusical from "../utils/validators/generosMusicais/isGeneroMusical";
 import idValid from "../utils/validators/idValid";
-import middleware from "../utils/validators/middleware";
 import { GeneroMusical } from './../utils/types/GeneroMusical';
+require('dotenv').config();
 
 class GenerosMusicaisController {
 
@@ -28,7 +28,8 @@ class GenerosMusicaisController {
     async store(req: Request, res: Response) {
         try {
             const token = req.headers.authorization as string;
-            if (token && middleware(token)) {
+            const api_key = process.env.TOKEN_SECRET as string;
+            if (token && token === api_key) {
                 const genero : GeneroMusical = req.body;
                 if (!isGeneroMusical(genero)) return res.status(400).json({error: 'Object is not of the type: Genero Musical'});
                 const result = await GenerosMusicaisRepository.create(genero);
@@ -42,7 +43,8 @@ class GenerosMusicaisController {
     async update(req: Request, res: Response) {
         try {
             const token = req.headers.authorization as string;
-            if (token && middleware(token)) {
+            const api_key = process.env.TOKEN_SECRET as string;
+            if (token && token === api_key) {
                 if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
                 const genero : GeneroMusical = req.body;
                 const result = await GenerosMusicaisRepository.update(new ObjectId(req.params.id), genero);
@@ -56,7 +58,8 @@ class GenerosMusicaisController {
     async delete(req: Request, res: Response) {
         try {
             const token = req.headers.authorization as string;
-            if (token && middleware(token)) {
+            const api_key = process.env.TOKEN_SECRET as string;
+            if (token && token === api_key) {
                 if (!idValid(req.params.id)) return res.status(400).json({error: 'Invalid ID'});
                 const result = await GenerosMusicaisRepository.delete(new ObjectId(req.params.id));
                 return res.status(result.code).json(result.data);

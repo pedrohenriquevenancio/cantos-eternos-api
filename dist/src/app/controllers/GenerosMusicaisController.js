@@ -13,7 +13,7 @@ const mongodb_1 = require("mongodb");
 const GenerosMusicaisRepository_1 = require("../repositories/GenerosMusicaisRepository");
 const isGeneroMusical_1 = require("../utils/validators/generosMusicais/isGeneroMusical");
 const idValid_1 = require("../utils/validators/idValid");
-const middleware_1 = require("../utils/validators/middleware");
+require('dotenv').config();
 class GenerosMusicaisController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -43,7 +43,8 @@ class GenerosMusicaisController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                if (token && (0, middleware_1.default)(token)) {
+                const api_key = process.env.TOKEN_SECRET;
+                if (token && token === api_key) {
                     const genero = req.body;
                     if (!(0, isGeneroMusical_1.default)(genero))
                         return res.status(400).json({ error: 'Object is not of the type: Genero Musical' });
@@ -61,7 +62,8 @@ class GenerosMusicaisController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                if (token && (0, middleware_1.default)(token)) {
+                const api_key = process.env.TOKEN_SECRET;
+                if (token && token === api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
                     const genero = req.body;
@@ -79,7 +81,8 @@ class GenerosMusicaisController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
-                if (token && (0, middleware_1.default)(token)) {
+                const api_key = process.env.TOKEN_SECRET;
+                if (token && token === api_key) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
                     const result = yield GenerosMusicaisRepository_1.default.delete(new mongodb_1.ObjectId(req.params.id));
