@@ -61,6 +61,7 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
+                console.log(token, (0, middleware_1.default)(token), (token && (0, middleware_1.default)(token)));
                 if (token && (0, middleware_1.default)(token)) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
@@ -68,7 +69,7 @@ class ArtistasController {
                     const result = yield ArtistasRepository_1.default.update(new mongodb_1.ObjectId(req.params.id), artista);
                     return res.status(result.code).json(result.data);
                 }
-                return res.status(401).json({ error: 'Unauthorized' });
+                return res.status(401).json({ error: `Unauthorized ${token} e ${(0, middleware_1.default)(token)}` });
             }
             catch (error) {
                 return res.status(500).json('Internal Server Error');
@@ -79,6 +80,7 @@ class ArtistasController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = req.headers.authorization;
+                console.log(token, (0, middleware_1.default)(token), (token && (0, middleware_1.default)(token)));
                 if (token && (0, middleware_1.default)(token)) {
                     if (!(0, idValid_1.default)(req.params.id))
                         return res.status(400).json({ error: 'Invalid ID' });
