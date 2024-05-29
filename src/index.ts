@@ -3,11 +3,13 @@ const cors = require('cors');
 import { Request, Response } from 'express';
 import ArtistasController from './app/controllers/ArtistasController';
 import GenerosMusicaisController from './app/controllers/GenerosMusicaisController';
+import middleware from './app/utils/validators/middleware';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(middleware);
 
 app.get('/', (req: Request, res: Response) => {
     return res.json({message: 'API - Cantos Eternos'});

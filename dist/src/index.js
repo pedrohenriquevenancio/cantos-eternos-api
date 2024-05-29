@@ -4,9 +4,11 @@ const express = require('express');
 const cors = require('cors');
 const ArtistasController_1 = require("./app/controllers/ArtistasController");
 const GenerosMusicaisController_1 = require("./app/controllers/GenerosMusicaisController");
+const middleware_1 = require("./app/utils/validators/middleware");
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(middleware_1.default);
 app.get('/', (req, res) => {
     return res.json({ message: 'API - Cantos Eternos' });
 });
